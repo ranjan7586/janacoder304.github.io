@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="resgistration.css">
+    <title>User Registration</title>
+</head>
+
+<body>
+    <div class="back" align="left">
+        <a href="index.html" target="_blank" class="add_new">Back</a>
+    </div>
+    <div class="container">
+        <form action="" method="post" name="formOne">
+            <table id="reg_table" class="table">
+                <tr>
+                    <td colspan="2" id="heading">
+                        <h1> User Registration Form
+                        </h1>
+                    </td>
+                </tr>
+                <tr>
+                    <td>First Name :</td>
+                    <td><input type="text" name="firstname" id="firstname"></td>
+                </tr>
+                <tr>
+                    <td>Last Name :</td>
+                    <td><input type="text" name="lastname" id="lastname"></td>
+                </tr>
+                <tr>
+                    <td>Phone Number :</td>
+                    <td><input type="number" name="phone_number" id="phone_number"></td>
+                </tr>
+                <tr>
+                    <td>Email :</td>
+                    <td><input type="email" name="email" id="email"></td>
+                </tr>
+                <tr>
+                    <td>Password :</td>
+                    <td><input type="password" name="password" id="password"></td>
+                </tr>
+                <tr>
+                    <td>Confirm Your Password :</td>
+                    <td><input type="password" name="cpassword" id="cpassword"></td>
+                </tr>
+                <tr>
+                    <td>Gender :</td>
+                    <td>
+                        <label for="male">Male</label>
+                        <input type="radio" name="gender" id="male" value="Male">
+
+                        <label for="female">Female</label>
+                        <input type="radio" name="gender" id="female" value="female">
+
+                    </td>
+                    <!-- <td></td> -->
+                </tr>
+                <tr>
+                    <td>Language Known :</td>
+                    <td>
+                        <input class="language" type="checkbox" name="language" value="hindi" id="hindi">
+                        <label for="hindi">Hindi</label>
+
+                        <input class="language" type="checkbox" name="language" value="english" id="english">
+                        <label for="english">English</label>
+
+                        <input class="language" type="checkbox" name="language" value="bengali" id="bengali">
+                        <label for="bengali">Bengali</label>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Select your Country :</td>
+                    <td>
+                        <select name="country" id="country">
+                            <option value="india">India</option>
+                            <option value="australia">Australia</option>
+                            <option value="england">England</option>
+                            <option value="nepal">Nepal</option>
+                            <option value="france">France</option>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Upload Your Image :</td>
+                    <td><input type="file" name="image" id="image"></td>
+                </tr>
+                <tr>
+                    <td>Write Something About Yourself :</td>
+                    <td><textarea name="about_user" id="about_user" cols="30" rows="5"></textarea></td>
+                </tr>
+                <tr>
+                    <td colspan="2" id="submit_btn"><input id="submit" type="submit" value="submit">
+                        <input id="reset" type="reset" value="reset">
+                    </td>
+                    < </tr>
+
+            </table>
+        </form>
+    </div>
+</body>
+<script>
+    console.log("hi");
+    // console.log(phone_number.length());
+
+    const submit_btn = document.querySelector("#submit");
+    submit_btn.addEventListener('click', (e) => {
+        e.preventDefault();
+        getFormData();
+    });
+    function getFormData() {
+        const firstname = document.formOne.firstname.value;
+        const lastname = document.formOne.lastname.value;
+        const phone_number = document.formOne.phone_number.value;
+        let email = document.formOne.email.value;
+        const password = document.formOne.password.value;
+        const cpassword = document.formOne.cpassword.value;
+        const language = document.formOne.language;
+        const gender = document.formOne.gender.value;
+        const country = document.formOne.country.value;
+        const image = document.formOne.image.value;
+        const about_user = document.formOne.about_user.value;
+        console.log(gender);
+
+
+
+        // console.log(email);
+        // const emailHandleData = emailValidate(String(email));
+        // console.log(emailHandleData);
+        console.log(email);
+        // console.log(country);
+        // console.log(String(image));
+        // console.log(language);
+
+
+        const emailValidateResult = emailValidate(String(email))
+        const imageValidateResult = imageHandle(String(image))
+        const languageValidateResult = handleLanguage()
+        const passwordValidateResult = passwordValidate(String(password));
+        // console.log("a,", d);c
+
+
+
+        if (firstname == "") {
+            alert("Please enter your firstname");
+        }
+
+        else if (lastname == "") {
+            alert("Please enter your lastname");
+        }
+
+
+        else if (phone_number == "") {
+            alert("Please enter your phone number");
+
+        }
+        else if (isNaN(phone_number)) {
+            alert("Please Enter a valid phone  number")
+        }
+        else if ((String(phone_number).length < 10) || (String(phone_number).length > 10)) {
+            alert("Phone number should contain 10 digits")
+        }
+        else if (email == "") {
+            alert("Please enter your email");
+        }
+        else if (emailValidateResult) {
+            // console.log(emailValidate());
+
+            alert("Please enter a valid email")
+        }
+        else if (password == "") {
+            alert("Please set your password")
+        }
+        else if (String(password).length < 8) {
+            alert("Please choose a strong password containing minimum 8 chracters")
+        }
+        else if (!passwordValidateResult) {
+            alert("Please choose a strong password including any special chracter and a numeric. ex - Password123@")
+        }
+        else if (cpassword == "") {
+            alert("Please Confirm your password")
+        }
+        else if (cpassword != password) {
+            alert("Passwords should be same")
+        }
+        else if (gender == "") {
+            alert("Please select your gender")
+        }
+        else if (languageValidateResult) {
+            alert("Please select your known languages")
+        }
+        else if (country == "") {
+            alert("Please select your Country")
+
+        }
+        else if (image == "") {
+            alert("Please insert an image")
+        }
+        else if (image && imageValidateResult) {
+            alert("Please insert images with format of .jpg or .jpeg, .png")
+        }
+        else if (about_user == "") {
+            alert("Please write something about yourself")
+        }
+        else {
+            window.location.replace("index.html");
+        }
+
+
+
+    }
+
+    const handleLanguage = function () {
+        let flag = 1;
+        let langItems = document.querySelectorAll('.language');
+        langItems.forEach((a) => {
+            if (a.checked == true) {
+                flag = 0;
+            }
+        })
+        return flag;
+
+    }
+
+    const imageHandle = function (image) {
+        const arr = ['.jpg', '.jpeg', '.png']
+        let dotIndex = image.indexOf('.');
+        let l = image.length;
+        let extension = image.substring(dotIndex, l)
+        if (arr.includes(extension)) {
+            return 0;
+        }
+        else
+            return 1;
+    }
+
+    const emailValidate = function (email) {
+        const lengthEmail = email.length;
+        let count = 0;
+        let spaceCount = 0;
+        let flag = true;
+
+        const specialChars = '[`!#$%^&*()_+-=[]{};\':"\\|,<>/?~]/';
+        const specialAppear = specialChars.split('').some((e) => {
+            return email.includes(e);
+        })
+
+        if (email.includes('@') && email.includes('.')) {
+            console.log(lengthEmail);
+            console.log("op", email[lengthEmail - 1]);
+
+            if ((email[0] == '@') || (email[0] == '.') || (email[lengthEmail - 1] == '@') || (email[lengthEmail - 1] == '.')) {
+                flag = true;
+                return flag;
+
+            }
+
+
+            for (let j = 0; j < email.length; j++) {
+                if (email[j] == '@') {
+                    count++;
+                }
+                if (email[j] == " ") {
+                    spaceCount++;
+                }
+
+            }
+            if (count > 1 || spaceCount > 0 || specialAppear) {
+                flag = true;
+                return flag;
+            }
+
+            for (let i = 0; i < email.length; i++) {
+                if ((email[i] == '.' && email[i + 1] == '.') || (email[i] == '@' && email[i + 1] == '@') || (email[i] == '@' && email[i + 1] == '.') || (email[i] == '.' && email[i + 1] == '@')) {
+                    flag = true;
+                    break;
+                }
+                else {
+                    flag = false;
+                }
+                console.log("flag,flag", flag);
+                console.log("kl", email[2]);
+
+
+            }
+        }
+
+        return flag;
+
+    }
+
+
+    const passwordValidate = function (password) {
+        console.log(password);
+
+        let flag = false;
+        const specialChars = '[`!@#$%^&*()_+-=[]{};\':"\\|,.<>/?~]/';
+        const specialAppear = specialChars.split('').some((e) => {
+            return password.includes(e);
+        })
+        console.log(specialAppear);
+
+        const specialNumbers = '1234567890';
+        const numberAppear = specialNumbers.split('').some((e) => {
+            return password.includes(e);
+        })
+        const capAlphabet = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+        const calAppear = capAlphabet.split('').some((e) => {
+            return password.includes(e);
+        })
+
+        console.log(numberAppear);
+
+        if (specialAppear && numberAppear && calAppear) {
+            flag = true;
+        }
+        return flag;
+
+    }
+
+</script>
+
+</html>
